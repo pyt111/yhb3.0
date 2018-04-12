@@ -1,0 +1,62 @@
+@import '~iview/src/styles/index.less';
+@import './base.less';
+
+// 下面是要覆盖的变量，例如：
+@primary-color: @theme; //主题色
+
+html,body,h1,h2,h3,h4,h5,h6,textarea,ul,li,span,p,input,ol,ul,a,img{
+    padding: 0;
+    margin: 0;
+}
+html{
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+a,ul,li,ol{
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+}
+a:hover{
+    text-decoration: none;
+}
+.clearfix:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+body{
+    background-color: #f7f7f7;
+}
+.common-center-page-wrap{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.common-center-page-nav{
+    display: inline-block;
+}
+.wrap-minw{
+    min-width: @minw !important;
+}
+.only-inline-form-item .ivu-form-item-content{
+   display: inline-block;
+}
+.no-border-ivu-table.ivu-table-wrapper {
+    border: none;
+}
+.no-border-ivu-table .ivu-table:after {
+    background-color: #FFFFFF;
+}
+.no-border-ivu-table .ivu-table:before{
+    background-color: #e3e8ee;
+}
+.ivu-spin-fix{
+    z-index: 0;
+}
