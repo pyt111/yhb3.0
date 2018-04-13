@@ -1,54 +1,54 @@
 <template>
-	<div class="clearfix">
-		<div class="top-img">
-			<img :src="img" alt="">
-		</div>
-		<span class="title">
-			<em class="fl"></em>
-			荣誉资质
-			<em class="fr"></em>
-		</span>
-		<Tabs value="name1">
-			<TabPane v-for="item,index in items" :key="item.id" :label="item.label" :name="item.name">
-				<div class="content">
-					<Card v-for="seditem,index in item.list" :key="seditem.id">
-						<div class="imgBox">
-							<img :src="seditem.small" alt="" style="" @click="modalShow">
-						</div>
-						<h4 class="text-f">{{seditem.explain}}</h4>
-					</Card>
-				</div>
-			</TabPane>
-		</Tabs>
-		<Modal v-model="modal1" width='700'>
-			<Carousel v-model="value1" loop>
-			<CarouselItem >
-				<div class="demo-carousel">1</div>
-			</CarouselItem>
-			<!-- <CarouselItem>
-				<div class="demo-carousel">2</div>
-			</CarouselItem>
-			<CarouselItem>
-				<div class="demo-carousel">3</div>
-			</CarouselItem>
-			<CarouselItem>
-				<div class="demo-carousel">4</div>
-			</CarouselItem> -->
-		</Carousel>
-		<div slot="footer" >
-           <!-- <button disabled="disabled"></button> -->
+    <div class="clearfix">
+        <div class="top-img">
+            <img :src="img" alt="">
         </div>
-		</Modal>
-		
-	</div>
+        <span class="title">
+            <em class="fl"></em>
+            荣誉资质
+            <em class="fr"></em>
+        </span>
+        <Tabs value="name1">
+            <TabPane v-for="item,x in items" :key="item.id" :label="item.label" :name="item.name">
+                <div class="content">
+                    <Card v-for="seditem,y in item.list" :key="seditem.id">
+                        <div class="imgBox">
+                            <img :src="seditem.small" alt="" style="" @click="modalShow($event,x,y)">
+                        </div>
+                        <h4 class="text-f">{{seditem.explain}}</h4>
+                    </Card>
+                </div>
+            </TabPane>
+        </Tabs>
+
+        <transition name="slide-fade">
+            <div v-if="show">
+                    <image-view  :imgArr="imgArr" :showImageView="true" :imageIndex="imageIndex" v-on:hideImage="hideImageView"></image-view>
+
+                <!-- <Carousel v-model="item.value1" loop>
+                    <CarouselItem >
+                        <div class="demo-carousel"><img :src="seditem.img" alt=""></div>
+                    </CarouselItem>
+                </Carousel> -->
+            </div>
+        </transition>
+
+    </div>
 </template>
 <script>
 import { IMG } from "@/config/url";
+import imageView from "vue-imageview";
 export default {
+    components: {
+        "image-view": imageView
+    },
     data() {
         return {
-			modal1:false,
-			value1:0,
+            modal1: false,
+            value1: 0,
+            imageIndex:'',
+            imgArr: [],
+            show:false,
             img: IMG + "/publicity/aptitude/aptitude-banner.png",
             modelSwitch: false,
             modelImg: "",
@@ -56,6 +56,9 @@ export default {
                 {
                     name: "name1",
                     label: "获得奖项",
+                    modal: false,
+                    value1: 0,
+                    show: false,
                     list: [
                         {
                             small:
@@ -63,69 +66,75 @@ export default {
                             img:
                                 "/static/images/zizhirongyu/awards_one_big.png",
                             alt: "卓越风控奖",
-                            explain: "2017年互联网金融卓越风控奖"
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
+                        },
+                        {
+                            small:
+                                "/static/images/zizhirongyu/mys.png",
+                            img:
+                                "/static/images/zizhirongyu/mys.png",
+                            alt: "卓越风控奖",
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
                         }
                     ]
                 },
                 {
                     name: "name2",
                     label: "企业许可证",
+                    modal: false,
+                    value1: 0,
+                    show: false,
                     list: [
                         {
-                            small: "/static/images/zizhirongyu/awards_one.png",
-                            img: "/static/images/zizhirongyu/awards_one.png",
+                            small:
+                                "/static/images/zizhirongyu/awards_one_small.png",
+                            img:
+                                "/static/images/zizhirongyu/awards_one_big.png",
                             alt: "卓越风控奖",
-                            explain: "2017年互联网金融卓越风控奖"
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
                         }
                     ]
                 },
                 {
                     name: "name3",
                     label: "荣誉称号",
+                    modal: false,
+                    value1: 0,
+                    show: false,
                     list: [
                         {
-                            small: "/static/images/zizhirongyu/awards_one.png",
-                            img: "/static/images/zizhirongyu/awards_one.png",
+                            small:
+                                "/static/images/zizhirongyu/awards_one_small.png",
+                            img:
+                                "/static/images/zizhirongyu/awards_one_big.png",
                             alt: "卓越风控奖",
-                            explain: "2017年互联网金融卓越风控奖"
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
                         }
                     ]
                 },
                 {
                     name: "name4",
                     label: "荣誉证书",
+                    modal: false,
+                    value1: 0,
+                    show: false,
                     list: [
                         {
-                            small: "/static/images/zizhirongyu/awards_one.png",
-                            img: "/static/images/zizhirongyu/awards_one.png",
+                            small:
+                                "/static/images/zizhirongyu/awards_one_small.png",
+                            img:
+                                "/static/images/zizhirongyu/awards_one_big.png",
                             alt: "卓越风控奖",
-                            explain: "2017年互联网金融卓越风控奖"
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
                         }
                     ]
                 }
             ]
-            // apts: [
-            //     {
-            //         thumbnail: IMG + "/publicity/aptitude/sm-one.png",
-            //         amplify: IMG + "/publicity/aptitude/l-one.jpg",
-            //         desc: "营业执照"
-            //     },
-            //     {
-            //         thumbnail: IMG + "/publicity/aptitude/sm-six.png",
-            //         amplify: IMG + "/publicity/aptitude/l-six.png",
-            //         desc: "荣誉证书"
-            //     },
-            //     {
-            //         thumbnail: IMG + "/publicity/aptitude/sm-seven.png",
-            //         amplify: IMG + "/publicity/aptitude/l-seven.png",
-            //         desc: "荣誉证书"
-            //     },
-            //     {
-            //         thumbnail: IMG + "/publicity/aptitude/sm-eight.png",
-            //         amplify: IMG + "/publicity/aptitude/l-eight.png",
-            //         desc: "荣誉证书"
-            //     }
-            // ]
         };
     },
     mounted() {
@@ -148,9 +157,24 @@ export default {
         this.$store.dispatch("publicityNavChange", 3);
     },
     methods: {
-		modalShow() {
-			this.modal1 = true;
-		},
+        modalShow(e, x, y) {
+            console.log(e, x, y);
+            let arr = [];
+            let listimg = this.items[x].list;
+            for (let i = 0; i < listimg.length; i++) {
+                this.imgArr.push(this.items[x].list[i].img);
+            }
+            this.imageIndex = x
+            // console.log(this.imgArr);
+            this.show = true;
+        //   let imgDom = document.querySelector('#imageView');
+        //   console.log(imgDom);
+        console.log(this);
+        },
+        hideImageView(y) {
+            this.show = false;
+             this.imgArr = []; //清空图片路径数组，防止重复添加
+        },
         isShow(src) {
             // this.modelImg = src;
             // this.modelSwitch = true;
@@ -195,43 +219,11 @@ export default {
             text-align: center;
             width: 25%;
         }
-	}
-	
-}
-.ivu-modal-close{
-	display: none;
-}
-.ivu-modal-footer{
-		display: none;
-	}
-#apt-model .ivu-modal-header-inner {
-    text-align: left;
-}
-#apt-model .ivu-modal-wrap {
-    text-align: center;
-}
-#apt-model .ivu-modal {
-    display: inline-block;
-    width: auto !important;
-}
-#apt-model .ivu-modal-body {
-    padding: 0;
-    line-height: 0;
-}
-#apt-model .ivu-modal-header,
-#apt-model .ivu-modal-footer,
-#apt-model .ivu-modal-close {
-    display: none;
-}
-.vertical-center-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .ivu-modal {
-        top: 0;
     }
 }
+  #imageView li img{
+        margin:0 auto;
+    }
 </style>
 
 <style lang="less" scoped>
@@ -310,6 +302,23 @@ export default {
     color: #fff;
     font-size: 16px;
 }
+.slide-fade-enter-active {
+        transition: opacity .5s ease;
+    }
+
+    .slide-fade-leave-active {
+        transition: opacity .5s ease;
+    }
+
+    .slide-fade-enter, .slide-fade-leave-active {
+        opacity: 0;
+    }
+    img {
+        display: block;
+        margin: 10px auto;
+        max-width: 400px;
+    }
+  
 </style>
 
 
