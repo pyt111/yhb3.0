@@ -13,7 +13,7 @@
                 <div class="content">
                     <Card v-for="seditem,y in item.list" :key="seditem.id">
                         <div class="imgBox">
-                            <img :src="seditem.small" alt="" style="" @click="modalShow($event,x,y)">
+                            <img :src="seditem.small" alt="" style="" @click="modalShow(x,y)">
                         </div>
                         <h4 class="text-f">{{seditem.explain}}</h4>
                     </Card>
@@ -37,7 +37,7 @@
 </template>
 <script>
 import { IMG } from "@/config/url";
-import imageView from "vue-imageview";
+import imageView from "@/public/imageView";
 export default {
     components: {
         "image-view": imageView
@@ -74,6 +74,15 @@ export default {
                                 "/static/images/zizhirongyu/mys.png",
                             img:
                                 "/static/images/zizhirongyu/mys.png",
+                            alt: "卓越风控奖",
+                            explain: "2017年互联网金融卓越风控奖",
+                            clas: "cla1"
+                        },
+                        {
+                            small:
+                                "/static/images/zizhirongyu/mys.png",
+                            img:
+                                "/static/logo.png",
                             alt: "卓越风控奖",
                             explain: "2017年互联网金融卓越风控奖",
                             clas: "cla1"
@@ -157,19 +166,18 @@ export default {
         this.$store.dispatch("publicityNavChange", 3);
     },
     methods: {
-        modalShow(e, x, y) {
-            console.log(e, x, y);
+        modalShow( x, y) {
+            console.log( x, y);
             let arr = [];
             let listimg = this.items[x].list;
             for (let i = 0; i < listimg.length; i++) {
                 this.imgArr.push(this.items[x].list[i].img);
             }
-            this.imageIndex = x
+            this.imageIndex = y
             // console.log(this.imgArr);
             this.show = true;
         //   let imgDom = document.querySelector('#imageView');
         //   console.log(imgDom);
-        console.log(this);
         },
         hideImageView(y) {
             this.show = false;
