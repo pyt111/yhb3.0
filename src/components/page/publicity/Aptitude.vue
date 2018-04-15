@@ -229,9 +229,13 @@ export default {
         }
     }
 }
+    
   #imageView li img{
         margin:0 auto;
     }
+      .ivu-tabs-ink-bar{
+      z-index: 0;
+  }
 </style>
 
 <style lang="less" scoped>
@@ -326,7 +330,7 @@ export default {
         margin: 10px auto;
         max-width: 400px;
     }
-  
+
 </style>
 
 
